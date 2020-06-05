@@ -6,18 +6,13 @@
 
 <script>
 import SpinTheWheel from "./components/SpinTheWheel.vue";
+// eslint-disable-next-line no-unused-vars
+import helper from "./helpers";
 
 export default {
   name: "App",
   components: {
     SpinTheWheel
-  },
-  mounted() {
-    Node.prototype.empty = function() {
-      while (this.firstChild) {
-        this.firstChild.remove();
-      }
-    };
   }
 };
 </script>
