@@ -1,22 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <SpinTheWheel id="wheel" v-bind:border="{ color: '#2C3E50', width: 0.6 }" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import SpinTheWheel from "./components/SpinTheWheel.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    SpinTheWheel
+  },
+  mounted() {
+    Node.prototype.empty = function() {
+      while (this.firstChild) {
+        this.firstChild.remove();
+      }
+    };
   }
 };
 </script>
 
 <style>
+#wheel {
+  height: 500px;
+  width: 500px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,5 +35,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
 }
 </style>
