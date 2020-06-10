@@ -10,7 +10,7 @@ export default {
   data: function() {
     return {
       radius: 50,
-      padding: 5,
+      padding: 1,
       internalPadding: 2
     };
   },
