@@ -11,7 +11,10 @@ export default {
     return {
       radius: 50,
       padding: 1,
-      internalPadding: 2
+      internalPadding: 2,
+      pointerLength: 6,
+      pointerWidth: 2.5,
+      wheelGroup: null
     };
   },
   computed: {
@@ -20,6 +23,12 @@ export default {
     },
     center() {
       return this.radius + this.padding;
+    },
+    theta() {
+      return (2 * Math.PI) / this.categories.length;
+    },
+    thetaDeg() {
+      return this.theta * (180 / Math.PI);
     },
     svgAngles() {
       const o = {};
@@ -41,6 +50,10 @@ export default {
         };
       }
     },
+    pointerColor: {
+      type: String,
+      default: "red"
+    },
     border: {
       type: Object,
       default: null
@@ -57,47 +70,34 @@ export default {
       }
     }
   },
-  watch: {
-    radius() {
-      this.build();
-    },
-    padding() {
-      this.build();
-    },
-    internalPadding() {
-      this.build();
-    },
-    categories: {
-      handler(val) {
-        this.build();
-      },
-      deep: true
-    },
-    border: {
-      handler(val) {
-        this.build();
-      },
-      deep: true
-    }
-  },
   mounted: function() {
-    this.build();
+    this.rebuild();
   },
   methods: {
-    getCorners(theta) {
+    spin(force, revLower = 1, revUpper = 3) {
+      const pick = Math.randRange(0, this.categories.length - 1);
+      const revs =
+        Math.randRange(revLower, revUpper) *
+        Math.round(Math.constrict(force, 1, 5));
+      const angle =
+        this.thetaDeg / 2 +
+        pick * this.thetaDeg +
+        Math.randRange(-this.thetaDeg / 2 + 5, this.thetaDeg / 2 - 5);
+      this.wheelGroup.animate(3000, "expoOut", 0).rotate(revs * 360 + angle);
+      console.log(this.categories[pick].name);
+    },
+    getCorners() {
       var corners = "";
       Object.keys(this.svgAngles).forEach(corner => {
-        if (theta >= this.svgAngles[corner]) {
+        if (this.theta >= this.svgAngles[corner]) {
           corners += " " + corner;
         }
       });
       return corners;
     },
-    build() {
+    rebuild() {
       document.querySelector(".wheel").empty();
-      const theta = (2 * Math.PI) / this.categories.length;
-      const thetaDeg = theta * (180 / Math.PI);
-      const corners = this.getCorners(theta);
+      const corners = this.getCorners();
 
       const draw = SVG()
         .viewbox(0, 0, this.limit, this.limit)
@@ -115,29 +115,34 @@ export default {
         circle.fill(this.border.color).stroke(cp);
       }
 
+      this.wheelGroup = draw.group();
       var c = 0;
 
       Object.keys(this.categories).forEach(key => {
         const element = this.categories[key];
-        var wedgeGroup = draw.group().attr({
-          transform: `rotate(${-thetaDeg * c} ${this.center} ${this.center})`
+        var wedgeGroup = this.wheelGroup.group().attr({
+          transform: `rotate(${-this.thetaDeg * c} ${this.center} ${
+            this.center
+          })`
         });
         wedgeGroup.clipWith(draw.use(circle));
 
-        const x = this.center + Math.round(this.limit * Math.cos(theta));
-        const y = this.center - Math.round(this.limit * Math.sin(theta));
+        const x = this.center + Math.round(this.limit * Math.cos(this.theta));
+        const y = this.center - Math.round(this.limit * Math.sin(this.theta));
         const wedge = wedgeGroup
           .polygon(
             `${this.center},${this.center} ${this.limit},${this.center} ${corners} ${x},${y}`
           )
           .fill(element.color);
-        const L = this.radius - this.internalPadding;
-        const xx = this.center + Math.round(L * Math.cos(theta / 2));
-        const yy = this.center - Math.round(L * Math.sin(theta / 2));
+        const textL = this.radius - this.internalPadding;
+        const textXDest =
+          this.center + Math.round(textL * Math.cos(this.theta / 2));
+        const textYDest =
+          this.center - Math.round(textL * Math.sin(this.theta / 2));
 
         const path = wedgeGroup.path(
           `M ${this.center + this.internalPadding}, ${this.center -
-            this.internalPadding} L ${xx}, ${yy}`
+            this.internalPadding} L ${textXDest}, ${textYDest}`
         );
 
         const txt = path
@@ -155,11 +160,23 @@ export default {
         if (this.border !== null) {
           wedge.stroke(this.border);
         }
-
         const clip = draw.use(wedge);
         wedge.clipWith(clip);
         c++;
       });
+
+      const rip = this.radius * 2 + this.padding;
+      const ptr = draw
+        .polygon(
+          `${this.radius * 2 - this.pointerLength},${this.center} ${rip},${this
+            .center + this.pointerWidth} ${rip},${this.center -
+            this.pointerWidth}`
+        )
+        .fill(this.pointerColor);
+
+      if (this.border !== null) {
+        ptr.stroke(this.border);
+      }
     }
   }
 };
@@ -167,6 +184,6 @@ export default {
 
 <style scoped>
 .wheel {
-  padding: 1rem;
+  transform: rotate(-90deg);
 }
 </style>

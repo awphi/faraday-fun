@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
+    "svg.easing.js": "svgdotjs/svg.easing.js",
     "vue": "^2.6.11",
     "vuex": "^3.4.0"
   },
