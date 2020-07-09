@@ -1,0 +1,43 @@
+button {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 2em;
+  box-shadow: 5px 5px 8px var(--cl-shadow);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.green {
+  background-color: var(--cl-green);
+}
+
+button.box {
+  background-color: var(--cl-box);
+}
+
+button.red {
+  background-color: var(--cl-red);
+}
+
+button.orange {
+  background-color: var(--cl-orange);
+}
+
+button.dark {
+  background-color: var(--cl-dark);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+}

@@ -1,0 +1,19 @@
+h1,
+h2,
+h3,
+a,
+p {
+  margin: 0;
+}
+
+#app,
+button {
+  font-family: "Noto Sans JP", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+
+#app {
+  color: #2c3e50;
+}

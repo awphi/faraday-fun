@@ -83,8 +83,10 @@ export default {
         this.thetaDeg / 2 +
         pick * this.thetaDeg +
         Math.randRange(-this.thetaDeg / 2 + 5, this.thetaDeg / 2 - 5);
-      this.wheelGroup.animate(3000, "expoOut", 0).rotate(revs * 360 + angle);
-      console.log(this.categories[pick].name);
+      return this.wheelGroup
+        .animate(3000, "cubicOut", 0)
+        .rotate(revs * 360 + angle);
+      //console.log(this.categories[pick].name);
     },
     getCorners() {
       var corners = "";
@@ -182,8 +184,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.wheel {
+<style>
+.wheel svg {
   transform: rotate(-90deg);
 }
 </style>

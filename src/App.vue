@@ -1,40 +1,40 @@
 <template>
   <div id="app">
-    <SpinTheWheel
-      id="wheel"
-      v-bind:border="{ color: '#2C3E50', width: 0.6 }"
-      v-bind:text="{ family: 'Noto Sans JP', size: 6, color: 'white' }"
-    />
+    <RainbowBackground />
+    <router-view />
   </div>
 </template>
 
 <script>
-import SpinTheWheel from "./components/SpinTheWheel.vue";
+import RainbowBackground from "./components/RainbowBackground.vue";
 // eslint-disable-next-line no-unused-vars
 import helper from "./helpers";
 
 export default {
   name: "App",
   components: {
-    SpinTheWheel
+    RainbowBackground
   }
 };
 </script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
+@import url("./assets/colors.css");
+@import url("./assets/buttons.css");
+@import url("./assets/text.css");
 
 #wheel {
-  height: 500px;
-  width: 500px;
+  height: 100%;
+  width: 100%;
+}
+
+#view {
+  width: 100%;
+  height: 100%;
 }
 
 #app {
-  font-family: "Noto Sans JP", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
   margin: 0;
 }
