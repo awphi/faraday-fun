@@ -35,7 +35,8 @@ button.dark {
 }
 
 button:active {
-  transform: translateY(1px);
+  transform: translateY(1.5px);
+  filter: brightness(90%);
 }
 
 button:disabled {

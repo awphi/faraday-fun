@@ -4,8 +4,8 @@
       <h1>Faraday Fun</h1>
       <h2>by awphi</h2>
       <div id="controls">
-        <button class="green">Start Game</button>
-        <button class="orange">Categories</button>
+        <button id="start-btn" class="green">Start Game</button>
+        <button id="categories-btn" class="orange">Categories</button>
       </div>
     </div>
   </div>
