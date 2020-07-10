@@ -1,10 +1,12 @@
 <template>
   <div id="splash">
-    <h1>Faraday Fun</h1>
-    <h2>by awphi</h2>
-    <div id="controls">
-      <button class="green">Start Game</button>
-      <button class="orange">Categories</button>
+    <div id="box">
+      <h1>Faraday Fun</h1>
+      <h2>by awphi</h2>
+      <div id="controls">
+        <button class="green">Start Game</button>
+        <button class="orange">Categories</button>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +16,34 @@ export default {
   name: "SplashScreen"
 };
 </script>
+
+<style>
+.sb {
+  border: none;
+  background-color: var(--cl-box);
+  padding: 1rem;
+  text-align: center;
+  display: inline-block;
+  border-radius: 2em;
+  box-shadow: 5px 5px 8px var(--cl-shadow);
+
+  position: absolute;
+  white-space: nowrap;
+
+  animation: floatUp 10s forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translate(-50%, 100vh);
+  }
+
+  to {
+    transform: translate(-50%, -10vh);
+  }
+}
+</style>
 
 <style scoped>
 @keyframes bounceIn {
@@ -35,6 +65,14 @@ export default {
   }
 }
 
+#sb-rain {
+  z-index: -10;
+  filter: blur(2px);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
 #splash {
   display: flex;
   flex-direction: column;
@@ -42,10 +80,11 @@ export default {
   justify-content: center;
   align-items: center;
   color: white;
-  animation-name: bounceIn;
-  animation-duration: 450ms;
+}
+
+#box {
+  animation: bounceIn 450ms forwards;
   animation-timing-function: linear;
-  animation-fill-mode: forwards;
 }
 
 h2 {

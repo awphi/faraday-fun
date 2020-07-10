@@ -1,18 +1,29 @@
 <template>
   <div id="app">
     <RainbowBackground />
+    <TextRain v-bind:phrases="menuPhrases" />
     <router-view />
   </div>
 </template>
 
 <script>
 import RainbowBackground from "./components/RainbowBackground.vue";
+import TextRain from "./components/TextRain.vue";
+
+import menuPhrasesRaw from "./assets/menu-phrases.txt";
+
 // eslint-disable-next-line no-unused-vars
 import helper from "./helpers";
 
 export default {
   name: "App",
+  data: function() {
+    return {
+      menuPhrases: menuPhrasesRaw.split("\n")
+    };
+  },
   components: {
+    TextRain,
     RainbowBackground
   }
 };
@@ -37,6 +48,7 @@ export default {
 #app {
   margin-top: 60px;
   margin: 0;
+  overflow: hidden;
 }
 
 body {
