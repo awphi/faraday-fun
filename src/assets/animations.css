@@ -1,0 +1,73 @@
+body {
+  --o-faded: 0.75;
+  --o-full: 1;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translate(-50%, 100vh);
+  }
+
+  to {
+    transform: translate(-50%, -10vh);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.89);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutPartial {
+  from {
+    opacity: var(--o-full);
+  }
+
+  to {
+    opacity: var(--o-faded);
+  }
+}
+
+@keyframes fadeInPartial {
+  from {
+    opacity: var(--o-faded);
+  }
+
+  to {
+    opacity: var(--o-full);
+  }
+}
+
+.fadeOutPartial {
+  animation: fadeOutPartial 0.2s ease forwards;
+}
+
+.fadeInPartial {
+  animation: fadeInPartial 0.2s ease forwards;
+}

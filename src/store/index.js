@@ -6,7 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    categories: categories
+    categories: categories,
+    enabledCategories: Object.keys(categories)
   },
   getters: {
     getCategory: state => id => {
@@ -14,9 +15,23 @@ export default new Vuex.Store({
     },
     getCategories: state => {
       return Object.keys(state.categories);
+    },
+    getEnabledCategories: state => {
+      return state.enabledCategories;
+    },
+    isCategoryEnabled: state => cat => {
+      return state.enabledCategories.includes(cat);
     }
   },
-  mutations: {},
+  mutations: {
+    toggleCategory(state, cat) {
+      if (state.enabledCategories.includes(cat)) {
+        state.enabledCategories.splice(state.enabledCategories.indexOf(cat), 1);
+      } else {
+        state.enabledCategories.push(cat);
+      }
+    }
+  },
   actions: {},
   modules: {},
   strict: process.env.NODE_ENV !== "production"

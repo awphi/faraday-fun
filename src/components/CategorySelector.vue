@@ -1,5 +1,11 @@
 <template>
-  <div class="cat-selector">
+  <div
+    :class="[
+      'cat-selector',
+      isCategoryEnabled(category) ? 'fadeInPartial' : 'fadeOutPartial'
+    ]"
+    @click="toggle()"
+  >
     <img :src="require(`@/assets/images/${getCategory(category).image}`)" />
     <div class="text-box">
       <h1>{{ getCategory(category).name }}</h1>
@@ -9,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "CategorySelector",
@@ -20,7 +26,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getCategory"])
+    ...mapGetters(["getCategory", "isCategoryEnabled"])
+  },
+  methods: {
+    ...mapMutations(["toggleCategory"]),
+    toggle() {
+      // Commits the change to the state
+      this.toggleCategory(this.category);
+
+      // TODO play animation here
+    }
   }
 };
 </script>

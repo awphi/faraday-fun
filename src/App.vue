@@ -33,6 +33,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
 @import url("./assets/colors.css");
 @import url("./assets/buttons.css");
+@import url("./assets/animations.css");
 @import url("./assets/text.css");
 
 #wheel {

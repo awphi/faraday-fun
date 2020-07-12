@@ -66,16 +66,6 @@ export default {
   animation-timing-function: linear;
   color: white;
 }
-
-@keyframes floatUp {
-  from {
-    transform: translate(-50%, 100vh);
-  }
-
-  to {
-    transform: translate(-50%, -10vh);
-  }
-}
 </style>
 
 <style scoped>
