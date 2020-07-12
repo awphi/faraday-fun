@@ -4,8 +4,16 @@
       <h1>Faraday Fun</h1>
       <h2>by awphi</h2>
       <div id="controls">
-        <button id="start-btn" class="green">Start Game</button>
-        <button id="categories-btn" class="orange">Categories</button>
+        <button id="start-btn" @click="$router.push('start')" class="green">
+          Start Game
+        </button>
+        <button
+          id="categories-btn"
+          @click="$router.push('categories')"
+          class="orange"
+        >
+          Categories
+        </button>
       </div>
     </div>
   </div>
@@ -43,9 +51,7 @@ export default {
     transform: translate(-50%, -10vh);
   }
 }
-</style>
 
-<style scoped>
 @keyframes bounceIn {
   0% {
     opacity: 0;
@@ -64,7 +70,9 @@ export default {
     transform: scale(1) translate3d(0, 0, 0);
   }
 }
+</style>
 
+<style scoped>
 #sb-rain {
   z-index: -10;
   filter: blur(2px);

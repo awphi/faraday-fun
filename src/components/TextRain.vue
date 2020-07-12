@@ -9,9 +9,6 @@ export default {
     this.addSb();
     this.rainSb();
   },
-  data: function() {
-    return { phrasesUsed: [] };
-  },
   props: {
     phrases: {
       type: Array,
@@ -27,26 +24,14 @@ export default {
     }
   },
   methods: {
-    getNextSbText() {
-      const r = Math.randRange(0, this.phrases.length - 1);
-      const p = this.phrases[r];
-      this.phrases.splice(r, 1);
-      this.phrasesUsed.push(p);
-
-      if (this.phrases.length === 0) {
-        this.phrases.push(...this.phrasesUsed);
-        this.phrasesUsed = [];
-      }
-
-      return p;
-    },
     addSb() {
+      console.log(this);
       if (this.phrases.length > 0) {
         const container = document.querySelector("#sb-rain");
         const sb = document.createElement("div");
         sb.classList.add("sb");
         sb.style.left = Math.randRange(20, 80) + "%";
-        sb.textContent = this.getNextSbText();
+        sb.textContent = this.phrases.exhaustiveRandomElement();
         sb.addEventListener("animationend", function() {
           this.remove();
         });
@@ -95,9 +80,10 @@ export default {
 
 <style scoped>
 #sb-rain {
-  filter: blur(2px);
+  filter: blur(1px);
   position: fixed;
   height: 100%;
   width: 100%;
+  z-index: -10;
 }
 </style>
